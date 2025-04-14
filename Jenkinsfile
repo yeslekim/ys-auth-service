@@ -22,6 +22,13 @@ pipeline {
         KUBECONFIG_ID = 'kubeconfig'
     }
 
+    stage('Print Branch') {
+        steps {
+            echo "BRANCH_TO_DEPLOY = ${params.BRANCH_TO_DEPLOY}"
+        }
+    }
+
+
     stages {
         stage('Checkout') {
             steps {
