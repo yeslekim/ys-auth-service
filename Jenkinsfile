@@ -26,7 +26,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: "${params.BRANCH_TO_DEPLOY}",
-                    url: 'http://10.1.218.84/achiv/auth-service.git'
+                    url: 'http://10.1.218.84/achiv/auth-service.git',
+                    credentialsId: 'gitlab-token'
             }
         }
 
