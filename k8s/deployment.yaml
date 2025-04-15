@@ -12,6 +12,13 @@ spec:
       labels:
         app: auth-service
     spec:
+      initContainers:
+        - name: wait-for-mariadb
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z mariadb 3306; do echo waiting for mariadb; sleep 2; done;' ]
+        - name: wait-for-redis
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z redis 6379; do echo waiting for redis; sleep 2; done;' ]
       containers:
         - name: auth-service
           image: 10.1.223.21:5000/auth-service:__TAG__
