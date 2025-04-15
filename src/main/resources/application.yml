@@ -12,6 +12,10 @@ spring:
     hikari:
       initialization-fail-timeout: -1   # 커넥션 실패 시 앱 죽지 않게 함
       connection-timeout: 10000         # 연결 시도 타임아웃 (ms)
+      maximum-pool-size: 10       # 너무 높게 설정되어 있다면 줄이기
+      minimum-idle: 2
+      idle-timeout: 10000         # 10초 유휴 후 정리
+      max-lifetime: 30000         # 커넥션 최대 수명
 
   jpa:
     hibernate:
