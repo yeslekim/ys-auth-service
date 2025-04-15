@@ -9,6 +9,10 @@ spring:
     password: elwlzoq100$
     driver-class-name: org.mariadb.jdbc.Driver
 
+    hikari:
+      initialization-fail-timeout: -1   # 커넥션 실패 시 앱 죽지 않게 함
+      connection-timeout: 10000         # 연결 시도 타임아웃 (ms)
+
   jpa:
     hibernate:
       ddl-auto: none
