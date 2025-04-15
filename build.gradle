@@ -8,7 +8,12 @@ plugins {
 jib {
     to {
         image = "10.1.223.21:5000/spring-auth-api:latest"
+        credHelper = 'none'
     }
+    container {
+        format = 'Docker'
+    }
+    allowInsecureRegistries = true  // http로 push가능
 }
 
 group = 'org.arc'
