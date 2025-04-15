@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: 10.1.223.21:5000/auth-service:latest
+          image: 10.1.223.21:5000/auth-service:__TAG__
+          imagePullPolicy: Always
           ports:
             - containerPort: 8081
           volumeMounts:

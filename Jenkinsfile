@@ -28,8 +28,17 @@ pipeline {
     stages {
         stage('Print Branch') {
             steps {
-                echo "👉 받은 브랜치: ${params.BRANCH_TO_DEPLOY}"
-                echo "✅ 정제된 브랜치: ${CLEAN_BRANCH}"
+                echo " 받은 브랜치: ${params.BRANCH_TO_DEPLOY}"
+                echo " 정제된 브랜치: ${CLEAN_BRANCH}"
+            }
+        }
+
+        stage('Print Tag') {
+            steps {
+                script {
+                    env.IMAGE_TAG = "${env.CLEAN_BRANCH}-${BUILD_NUMBER}"
+                    echo "태그: ${IMAGE_TAG}"
+                }
             }
         }
 
@@ -50,9 +59,16 @@ pipeline {
         stage('Build & Push Image with Jib') {
             steps {
                 script {
-                    def tag = "${REGISTRY}/${IMAGE_NAME}:${env.CLEAN_BRANCH}"
+                    def tag = "${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
                     sh "./gradlew jib --image=${tag}"
                 }
+            }
+        }
+
+        stage('Replace Tag in Deployment') {
+            steps {
+                sh "cp k8s/deployment.yaml k8s/deployment-patched.yaml"
+                sh "sed -i 's|__TAG__|${IMAGE_TAG}|g' k8s/deployment-patched.yaml"
             }
         }
 
@@ -64,7 +80,7 @@ pipeline {
                     sh "kubectl apply -f k8s/pv.yaml || true"
                     sh "kubectl apply -f k8s/pvc.yaml || true"
 
-                    sh "kubectl apply -f k8s/deployment.yaml"
+                    sh "kubectl apply -f k8s/deployment-patched.yaml"
                     sh "kubectl apply -f k8s/service.yaml"
                 }
             }
