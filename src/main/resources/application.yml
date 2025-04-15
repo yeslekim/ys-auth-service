@@ -39,6 +39,8 @@ spring:
           max-active: 10
           max-idle: 5
           min-idle: 1
+        client-options:
+          autoReconnect: true
 
 jwt:
   secret: "my-super-secure-jwt-secret-key-2024!!"
