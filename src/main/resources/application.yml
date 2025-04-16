@@ -49,4 +49,7 @@ server:
 
 logging:
   level:
+    root: DEBUG
+    org.springframework: DEBUG
     org.springframework.data.redis: DEBUG
+    io.lettuce.core: DEBUG
