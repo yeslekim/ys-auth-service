@@ -46,3 +46,7 @@ jwt:
   secret: "my-super-secure-jwt-secret-key-2024!!"
 server:
   port: 8081
+
+logging:
+  level:
+    org.springframework.data.redis: DEBUG
