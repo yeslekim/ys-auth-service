@@ -1,22 +1,10 @@
 
 spring:
+  profiles:
+    active: local
+
   application:
     name: auth-service
-
-  datasource:
-    url: jdbc:mariadb://mariadb:3306/aiarc
-    username: root
-    password: elwlzoq100$
-    driver-class-name: org.mariadb.jdbc.Driver
-
-    hikari:
-      initialization-fail-timeout: -1   # 커넥션 실패 시 앱 죽지 않게 함
-      connection-timeout: 10000         # 연결 시도 타임아웃 (ms)
-      maximum-pool-size: 10       # 너무 높게 설정되어 있다면 줄이기
-      minimum-idle: 2
-      idle-timeout: 10000         # 10초 유휴 후 정리
-      max-lifetime: 30000         # 커넥션 최대 수명
-
   jpa:
     hibernate:
       ddl-auto: none
@@ -26,22 +14,6 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.MariaDBDialect
 
-  data:
-    redis:
-      host: redis-service
-      port: 6379
-      timeout: 5000
-      connect-timeout: 5000
-      client-type: lettuce
-      lettuce:
-        shutdown-timeout: 100
-        pool:
-          max-active: 10
-          max-idle: 5
-          min-idle: 1
-        client-options:
-          autoReconnect: true
-
 jwt:
   secret: "my-super-secure-jwt-secret-key-2024!!"
 server:
@@ -50,3 +22,7 @@ server:
 logging:
   level:
     org.springframework: DEBUG
+
+
+
+

@@ -1,0 +1,37 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:mariadb://10.1.223.20:30306/aiarc
+    username: root
+    password: elwlzoq100$
+    driver-class-name: org.mariadb.jdbc.Driver
+
+    hikari:
+      initialization-fail-timeout: -1   # 커넥션 실패 시 앱 죽지 않게 함
+      connection-timeout: 10000         # 연결 시도 타임아웃 (ms)
+      maximum-pool-size: 10       # 너무 높게 설정되어 있다면 줄이기
+      minimum-idle: 2
+      idle-timeout: 10000         # 10초 유휴 후 정리
+      max-lifetime: 30000         # 커넥션 최대 수명
+
+  data:
+    redis:
+      host: 10.1.223.21
+      port: 30079
+      timeout: 5000
+      connect-timeout: 5000
+      client-type: lettuce
+      lettuce:
+        shutdown-timeout: 100
+        pool:
+          max-active: 10
+          max-idle: 5
+          min-idle: 1
+        client-options:
+          autoReconnect: true
+
+front:
+  url: http://localhost:5173
