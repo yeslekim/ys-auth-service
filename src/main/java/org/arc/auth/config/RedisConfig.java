@@ -1,9 +1,11 @@
 package org.arc.auth.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,7 +21,7 @@ public class RedisConfig {
   @Value("${spring.data.redis.port}")
   private int redisPort;
 
-  @Bean
+  @Bean(name = "customRedisConnectionFactory")
   public LettuceConnectionFactory redisConnectionFactory() {
     log.debug("[ RedisConfig ] Redis 연결: " + redisHost + ":" + redisPort); // 디버깅용
     RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
@@ -29,9 +31,10 @@ public class RedisConfig {
   }
 
   @Bean
-  public RedisTemplate<String, String> redisTemplate() {
+  public RedisTemplate<String, String> redisTemplate(
+      @Qualifier("customRedisConnectionFactory") RedisConnectionFactory connectionFactory) {
     RedisTemplate<String, String> template = new RedisTemplate<>();
-    template.setConnectionFactory(redisConnectionFactory());
+    template.setConnectionFactory(connectionFactory);
     template.setKeySerializer(new StringRedisSerializer());
     template.setValueSerializer(new StringRedisSerializer());
     return template;
