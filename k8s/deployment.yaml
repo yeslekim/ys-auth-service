@@ -29,11 +29,11 @@ spec:
             - name: auth-storage
               mountPath: /data/auth
           # 🔧 디버그 도구용 sidecar
-        - name: debug
-          image: nicolaka/netshoot
-          command: [ "sleep", "infinity" ]
-          stdin: true
-          tty: true
+#        - name: debug
+#          image: nicolaka/netshoot
+#          command: [ "sleep", "infinity" ]
+#          stdin: true
+#          tty: true
       volumes:
         - name: auth-storage
           persistentVolumeClaim:
