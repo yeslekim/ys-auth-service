@@ -34,4 +34,4 @@ spring:
           autoReconnect: true
 
 front:
-  url: react-service
+  url: http://10.1.223.21:30085
