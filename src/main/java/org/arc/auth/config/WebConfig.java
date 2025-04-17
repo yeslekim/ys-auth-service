@@ -18,7 +18,7 @@ public class WebConfig {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // 모든 엔드포인트 허용
-            .allowedOrigins(url) // 프론트 주소
+            .allowedOrigins("*") // 프론트 주소
             .allowedMethods("*")
             .allowedHeaders("*")
             .allowCredentials(true);
