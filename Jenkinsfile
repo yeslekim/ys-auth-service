@@ -83,8 +83,6 @@ pipeline {
                     sh "kubectl apply -f k8s/deployment-patched.yaml"
                     sh "kubectl apply -f k8s/service.yaml"
 
-                    // ingress 배포
-                    sh "kubectl apply --validate=false -f k8s/ingress.yaml || true"
                 }
             }
         }
